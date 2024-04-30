@@ -1,0 +1,7 @@
+name,shell,home,groups
+nathan,/bin/bash,/home/nathan,sudo
+alice,/bin/zsh,/home/alice,sudo
+bob,/bin/bash,/home/bob,sudo
+charlie,/bin/bash,/home/charlie,sudo
+
+#fichier csv 

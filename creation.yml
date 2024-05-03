@@ -5,8 +5,8 @@
    - name: reading the csv file
      read_csv:
       path: user.csv
-     register: user_list
-     delegate_to: localhost
+     register: user_list                #Permet de stocker les données du CSV dans une variable 
+     delegate_to: localhost             #Indique que la tâche doit être exécutée sur l'hôte local 
 
    - name: display user_list data
      debug:
@@ -17,8 +17,8 @@
        name: "{{ item.name }}"
        shell: "{{ item.shell }}"
        home: "{{ item.home }}"
-       groups: "{{ item.groups }}"
-       append: yes
-       generate_ssh_key: yes
-     loop: "{{ user_list.list }}"
+       groups: "{{ item.groups }}" 
+       append: yes                     #Permet d'ajouter l'utilisateur aux groupes existants s'il n'y appartient pas déjà.
+       generate_ssh_key: yes           # Génère une clé SSH pour l'utilisateur.
+     loop: "{{ user_list.list }}"      # Indique que la tâche doit être exécutée pour chaque élément de la liste user_list.list, c'est-à-dire pour chaque ligne du fichier CSV.
 

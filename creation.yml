@@ -1,0 +1,24 @@
+---
+- name: create users from csv file
+  hosts: all                            #Cette ligne indique à Ansible sur quels hôtes (machines) cette tâche doit être exécutée. Dans ce cas, all signifie que la tâche sera exécutée sur tous les hôtes définis dans votre inventaire Ansible.
+  tasks:                                #Cette section définit une liste de tâches qui seront exécutées sur les hôtes ciblés.
+   - name: reading the csv file
+     read_csv:
+      path: user.csv
+     register: user_list
+     delegate_to: localhost
+
+   - name: display user_list data
+     debug:
+      var: user_list.list
+
+   - name: Creer les comptes utilisateurs    partir des donnees CSV
+     user:
+       name: "{{ item.name }}"
+       shell: "{{ item.shell }}"
+       home: "{{ item.home }}"
+       groups: "{{ item.groups }}"
+       append: yes
+       generate_ssh_key: yes
+     loop: "{{ user_list.list }}"
+
